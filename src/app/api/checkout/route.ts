@@ -1,9 +1,20 @@
 import Stripe from 'stripe'
 import { redirect } from 'next/navigation'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
+export const dynamic = 'force-dynamic'
 
 export async function POST(request: Request) {
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+
+  if (!stripeSecretKey) {
+    return Response.json(
+      { error: 'STRIPE_SECRET_KEY is not configured' },
+      { status: 500 },
+    )
+  }
+
+  const stripe = new Stripe(stripeSecretKey)
+
   const formData = await request.formData()
   const priceId = formData.get('priceId')
 
