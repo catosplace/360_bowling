@@ -24,7 +24,10 @@ COPY --from=builder /app/.next/static ./.next/static
 # Needed so Payload CLI can run migrations
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/src/migrations ./src/migrations
+COPY --from=builder /app/tsconfig.json ./tsconfig.json
+COPY --from=builder /app/payload.config.ts ./payload.config.ts
+COPY --from=builder /app/src ./src
 
 EXPOSE 3000
-CMD ["sh", "-c", "pnpm payload migrate && node server.js"]
+
+CMD ["sh", "-c", "pnpm payload migrate --config ./payload.config.ts && node server.js"]
