@@ -19,7 +19,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
+# COPY --from=builder /app/public ./public
 
 # Needed so Payload CLI can run migrations
 COPY --from=builder /app/node_modules ./node_modules
