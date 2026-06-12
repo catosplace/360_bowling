@@ -30,4 +30,4 @@ COPY --from=builder /app/src ./src
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "pnpm payload migrate --config ./payload.config.ts && node server.js"]
+CMD ["sh", "-c", "pnpm payload migrate && node server.js"]
